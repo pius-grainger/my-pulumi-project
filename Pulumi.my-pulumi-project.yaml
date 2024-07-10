@@ -1,3 +1,4 @@
 config:
   aws:region: eu-west-2
   my-pulumi-project:awsRegion: eu-west-2
+  my-pulumi-project:s3BucketName: pius.chungath2
