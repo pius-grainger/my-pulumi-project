@@ -2,5 +2,5 @@ name: my-pulumi-project
 runtime: nodejs
 main: ./dist/infra/index.js
 config:
-  my-pulumi-project:s3BucketName: pius.chungath2
+  my-pulumi-project:s3BucketName: pius.chungath3
   my-pulumi-project:awsRegion: eu-west-2
