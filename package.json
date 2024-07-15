@@ -13,7 +13,7 @@
     "start": "npm run build && npm run deploy && npm run pulumi:up"
   },
   "dependencies": {
-    "@pius-grainger/pulumi-lambda-library": "^1.0.17",
+    "@pius-grainger/pulumi-lambda-library": "^1.0.19",
     "@pulumi/aws": "^5.0.0",
     "@pulumi/pulumi": "^3.0.0"
   },

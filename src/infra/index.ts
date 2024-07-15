@@ -30,7 +30,7 @@ const lambdaConfigs = [
     {
         name: "apiHandler",
         handler: "apiHandler",
-        entryPoint: "index.handler",
+        entryPoint: "apiHandler.handler",
         runtime: nodejsRuntime,
         triggers: [{ type: "apigateway" as const }],
         s3Bucket: bucket,
@@ -40,7 +40,7 @@ const lambdaConfigs = [
     {
         name: "snsHandler",
         handler: "snsHandler",
-        entryPoint: "index.handler",
+        entryPoint: "snsHandler.handler",
         runtime: nodejsRuntime,
         triggers: [{ type: "sns" as const }],
         s3Bucket: bucket,
