@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "compile": "tsc",
-    "build:apiHandler": "zip -r dist/apiHandler.zip src/handlers/apiHandler.ts",
-    "build:snsHandler": "zip -r dist/snsHandler.zip src/handlers/snsHandler.ts",
+    "build:apiHandler": "tsc && zip -j dist/apiHandler.zip dist/handlers/apiHandler.js",
+    "build:snsHandler": "tsc && zip -j dist/snsHandler.zip dist/handlers/snsHandler.js",
     "build": "npm run build:apiHandler && npm run build:snsHandler",
     "deploy:apiHandler": "node scripts/deploy.js apiHandler",
     "deploy:snsHandler": "node scripts/deploy.js snsHandler",
@@ -13,7 +13,7 @@
     "start": "npm run build && npm run deploy && npm run pulumi:up"
   },
   "dependencies": {
-    "@pius-grainger/pulumi-lambda-library": "^1.0.11",
+    "@pius-grainger/pulumi-lambda-library": "^1.0.17",
     "@pulumi/aws": "^5.0.0",
     "@pulumi/pulumi": "^3.0.0"
   },

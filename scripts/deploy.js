@@ -1,23 +1,35 @@
-const { execSync } = require('child_process');
-const path = require('path');
+const AWS = require('aws-sdk');
 const fs = require('fs');
+const path = require('path');
 
-// Read config.json
-const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
-const s3BucketName = config.s3BucketName;
+const s3 = new AWS.S3();
 
-// Get the handler name from the command line arguments
-const handlerName = process.argv[2];
+const args = process.argv.slice(2);
+const handlerName = args[0];
+
 if (!handlerName) {
-  console.error('Handler name is required');
-  process.exit(1);
+    console.error('Handler name is required');
+    process.exit(1);
 }
 
-// Construct the local file path and S3 path
+const bucketName = process.env.S3_BUCKET_NAME || "pius.chungath2";
 const filePath = path.resolve(__dirname, `../dist/${handlerName}.zip`);
-const s3Path = `s3://${s3BucketName}/${handlerName}.zip`;
+const key = `${handlerName}.zip`;
 
-// Upload the file to S3
-console.log(`Uploading ${filePath} to ${s3Path}`);
-execSync(`aws s3 cp ${filePath} ${s3Path}`, { stdio: 'inherit' });
-console.log('Upload complete');
+if (!fs.existsSync(filePath)) {
+    console.error(`File not found: ${filePath}`);
+    process.exit(1);
+}
+
+s3.upload({
+    Bucket: bucketName,
+    Key: key,
+    Body: fs.createReadStream(filePath)
+}, (err, data) => {
+    if (err) {
+        console.error(`Failed to upload ${filePath} to ${bucketName}/${key}:`, err);
+        process.exit(1);
+    } else {
+        console.log(`Successfully uploaded ${filePath} to ${bucketName}/${key}`);
+    }
+});
